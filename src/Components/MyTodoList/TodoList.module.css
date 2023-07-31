@@ -1,0 +1,98 @@
+.todoContainer {
+  /* padding: 2rem; */
+  margin-top: 1rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+.todo {
+  min-width: 400px;
+  border-radius: 0.5rem;
+  background-color: rgb(171, 171, 217);
+  padding: 1rem;
+}
+.noTodo {
+  color: rgb(245, 32, 32);
+  background-color: rgb(237, 168, 168);
+  padding: 1rem 3rem;
+  border-radius: 1rem;
+  position: absolute;
+  top: 50%;
+}
+.titleText {
+  padding: 0.5rem;
+  font-size: 25px;
+  font-weight: bold;
+  color: rgb(65, 13, 68);
+}
+.description {
+  margin-left: 2rem;
+  font-size: 20px;
+  color: rgb(44, 35, 172);
+  margin-bottom: 1rem;
+}
+button {
+  padding: 0.5rem 2rem;
+  cursor: pointer;
+  border: none;
+  border-radius: 0.5rem;
+  transition: 0.15s;
+}
+.edit {
+  /* margin: 0 1rem; */
+  background-color: black;
+  color: white;
+  /* margin-left: 1rem; */
+}
+.delete {
+  background-color: rgb(234, 112, 112);
+  color: rgb(216, 24, 24);
+}
+.btns {
+  display: flex;
+  column-gap: 0.5rem;
+}
+.inputBox {
+  display: block;
+  outline: none;
+  border: 1px solid rgb(71, 68, 68);
+  padding: 1rem;
+  border-radius: 0.3rem;
+  width: 100%;
+  margin-bottom: 1rem;
+}
+.saveEdit {
+  background-color: rgb(181, 239, 181);
+  color: rgb(21, 122, 21);
+}
+.clearTodo {
+  background-color: rgb(235, 145, 145);
+  color: rgb(141, 12, 12);
+}
+.resetTodo {
+  background-color: rgb(188, 172, 231);
+  color: rgb(28, 11, 116);
+}
+.editDelete {
+  padding: 1rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+@media (max-width: 400px) {
+  .noTodo {
+    padding: 1rem;
+    font-size: small;
+  }
+  .inputBox {
+    width: 250px;
+  }
+  .btns {
+    flex-wrap: wrap;
+  }
+  .todo {
+    min-width: max-content;
+  }
+}
