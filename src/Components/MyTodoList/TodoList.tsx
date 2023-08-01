@@ -1,15 +1,43 @@
 import { ChangeEvent, useState } from "react";
 import TodoListCss from "./TodoList.module.css";
-import { Todo } from "../../App";
-type Todos = {
-  title: string;
-  description: string;
-  resetTitle: string;
-  resetDescription: string;
-  isProcessing: boolean;
-};
+import { MdOutlineDelete, MdResetTv } from "react-icons/md";
+import { RiEdit2Fill } from "react-icons/ri";
+import { TfiSave } from "react-icons/tfi";
+import { AiOutlineClear } from "react-icons/ai";
+
+import {
+  All,
+  Todo,
+  Todos,
+  deleteAll,
+  deleteAllTodConfirm,
+  deleteBox,
+  deleteBtn,
+  deleteType,
+  markCompleted,
+  markNotCompleted,
+  noList,
+  textDecoration,
+} from "../Utils/utils";
+import Alret from "../Alret/Alret";
+
 export default function TodoList(props: any) {
-  const { todos, UpdateTodoList,deleteTodo } = props;
+  const { todos, UpdateTodoList, deleteTodo, markAllCompleted } = props;
+  const message = {
+    text: deleteAllTodConfirm,
+    type: deleteType,
+    style: {
+      box: deleteBox,
+      button: deleteBtn,
+    },
+    deleteTodo,
+  };
+
+  const [open, setOpen] = useState<boolean>(false);
+  const [todoControl, setTodoControl] = useState<All>({
+    deleteAll: false,
+    markAll: false,
+  });
   const [editTodo, setEditTodo] = useState<Todos>({
     title: "",
     description: "",
@@ -19,10 +47,19 @@ export default function TodoList(props: any) {
   });
   const savehandler = (todo: Todo) => {
     if (editTodo.description && editTodo.title) {
-      console.log(todo);
+      // console.log(todo);
       todo.description = editTodo.description;
       todo.title = editTodo.title;
       todo.isEdit = false;
+      // console.log(editTodo)
+      if (
+        editTodo.title !== editTodo.resetTitle ||
+        editTodo.description !== editTodo.resetDescription
+      ) {
+        // console.log("true");
+        todo.isCompleted = false;
+      }
+
       UpdateTodoList(todo);
       editTodo.isProcessing = false;
     }
@@ -50,14 +87,37 @@ export default function TodoList(props: any) {
     const { name, value } = e.target;
     setEditTodo({ ...editTodo, [name]: value });
   };
-  const resetData = (title:string, description:string) => {
+  const resetData = (title: string, description: string) => {
     setEditTodo({ ...editTodo, title, description });
   };
-  const clearTodo = (title:string,description:string)=>{
+  const clearTodo = (title: string, description: string) => {
     setEditTodo({ ...editTodo, title, description });
-  }
+  };
+  const todoComplete = (todo: Todo) => {
+    todo.isCompleted = true;
+    UpdateTodoList(todo);
+  };
   return (
     <>
+    {todos.length? 
+      <div className={TodoListCss.allClear}>
+        <button
+          className={
+            todoControl.markAll
+              ? TodoListCss.completeTodoAfter
+              : TodoListCss.completeTodoBefore
+          }
+          onClick={() => {
+            markAllCompleted();
+            setTodoControl({ ...todoControl, markAll: true });
+          }}
+        >
+          {todoControl.markAll ? `✅ ${markCompleted}` : markNotCompleted}
+        </button>
+        <button className={TodoListCss.deleteAll} onClick={() => setOpen(true)}>
+          Delete All List
+        </button>
+      </div>:""}
       <div className={TodoListCss.todoContainer}>
         {todos.length ? (
           todos.map((todo: Todo) => {
@@ -78,13 +138,13 @@ export default function TodoList(props: any) {
                       onChange={(e) => changeHandler(e)}
                     ></textarea>
                     <p className={TodoListCss.btns}>
-                      <button
+                      <span
                         className={TodoListCss.saveEdit}
                         onClick={() => savehandler(todo)}
                       >
-                        Save Edit
-                      </button>
-                      <button
+                        <TfiSave />
+                      </span>
+                      <span
                         className={TodoListCss.resetTodo}
                         onClick={() =>
                           resetData(
@@ -93,27 +153,67 @@ export default function TodoList(props: any) {
                           )
                         }
                       >
-                        Reset Todo
-                      </button>
-                      <button className={TodoListCss.clearTodo} onClick={()=>clearTodo("","")}>
-                        Clear Todo
-                      </button>
+                        <MdResetTv />
+                      </span>
+                      <span
+                        className={TodoListCss.clearTodo}
+                        onClick={() => clearTodo("", "")}
+                      >
+                        <AiOutlineClear />
+                      </span>
                     </p>
                   </div>
                 ) : (
                   <div key={todo.id}>
-                    <p className={TodoListCss.titleText}>{todo.title} :</p>
-                    <p className={TodoListCss.description}>
+                    <p
+                      className={TodoListCss.titleText}
+                      style={
+                        todo.isCompleted
+                          ? { textDecoration: textDecoration }
+                          : {}
+                      }
+                    >
+                      {todo.title} :
+                    </p>
+                    <p
+                      className={TodoListCss.description}
+                      style={
+                        todo.isCompleted
+                          ? { textDecoration: textDecoration }
+                          : {}
+                      }
+                    >
                       {todo.description}
                     </p>
                     <p className={TodoListCss.editDelete}>
-                      <button
+                      <span
                         className={TodoListCss.edit}
                         onClick={() => editTodhandler(todo)}
                       >
-                        Edit
+                        <RiEdit2Fill />
+                      </span>
+                      <span
+                        className={TodoListCss.delete}
+                        onClick={() => deleteTodo(todo.id)}
+                      >
+                        <MdOutlineDelete />
+                      </span>
+                      <button
+                        style={{
+                          padding: "0.5rem 1rem",
+                          fontSize: "12px",
+                        }}
+                        className={
+                          todo.isCompleted
+                            ? TodoListCss.completeTodoAfter
+                            : TodoListCss.completeTodoBefore
+                        }
+                        onClick={() => todoComplete(todo)}
+                      >
+                        {todo.isCompleted
+                          ? `✅ ${markCompleted}`
+                          : markNotCompleted}
                       </button>
-                      <button className={TodoListCss.delete} onClick={()=>deleteTodo(todo.id)}>Delete</button>
                     </p>
                   </div>
                 )}
@@ -121,9 +221,10 @@ export default function TodoList(props: any) {
             );
           })
         ) : (
-          <h4 className={TodoListCss.noTodo}>No Record Found</h4>
+          <h4 className={TodoListCss.noTodo}>{noList}</h4>
         )}
       </div>
+      <Alret open={open} setOpen={setOpen} message={message} />
     </>
   );
 }

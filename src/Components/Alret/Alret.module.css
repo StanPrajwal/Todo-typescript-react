@@ -1,0 +1,56 @@
+*{
+    font-family: cursive;
+    transition: 1s;
+    cursor: pointer;
+}
+.alretBox{
+    display: block;
+    position: absolute;
+    top: 22%;
+    left: 0;
+    transition: 2s ease-in-out;
+    padding: 0.8rem 1rem;
+    border-radius: 1rem;
+    min-width: 400px;
+    
+}
+.alretBoxClose{
+    display: none;
+}
+.cancel{
+    text-align: right;
+}
+.cancel:active{
+    transform: scale(0.98);
+}
+/* .cancel:hov{
+    transform: scaleX(0.5);
+} */
+.message{
+    text-align: center;
+    padding: 0.6rem;
+    padding-top: 0.4rem;
+    vertical-align: middle;
+}
+.goList{
+
+    padding: 0.4rem;
+    font-size: 10px;
+    border-radius: 0.5rem;
+    vertical-align: middle;
+    cursor: pointer;
+    margin-left: 0.2em;
+    transition: 2s ease-in-out;
+}
+.goList:active{
+    background-color: rgb(106, 222, 106);
+    border-radius: 0.5rem;
+}
+@media (max-width:400px){
+    .alretBox{
+        min-width: max-content;
+    }
+    .message{
+        font-size: smaller;
+    }
+}

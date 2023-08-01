@@ -1,24 +1,32 @@
 * {
   margin: 0;
   padding: 0;
+  transition: 2s ease-in-out;
 }
 .header {
   background-color: rgb(89, 86, 86);
   font-family: cursive;
   position: relative;
- 
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+}
+.logoContainer {
+  vertical-align: middle;
 }
 .logo {
   display: inline-block;
-  font-size: 35px;
+  font-size: 20px;
   font-weight: bolder;
-  padding: 1rem;
+  /* padding: 1rem; */
   vertical-align: middle;
+  color: rgb(210, 61, 93);
+  text-transform: capitalize;
 }
 .navLinks {
   display: inline-flex;
   column-gap: 1.5rem;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
   padding: 1rem;
   vertical-align: middle;
 }
@@ -43,6 +51,12 @@
 
 .navForMobile {
   display: none;
+  transition: 2s ease-in-out;
+}
+.tagLine {
+  font-size: 13px;
+  margin-left: 1rem;
+  color: rgb(159, 180, 237);
 }
 
 @media (max-width: 500px) {
@@ -54,9 +68,13 @@
     flex-direction: column;
   }
   .navForMobile {
+    /* transition: 0.15s ease-in-out; */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+  }
+  .header {
+    display: block;
   }
 }

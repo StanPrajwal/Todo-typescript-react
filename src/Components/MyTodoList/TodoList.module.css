@@ -6,6 +6,7 @@
   align-items: center;
   flex-direction: column;
   row-gap: 2rem;
+  padding-bottom:1rem ;
 }
 .todo {
   min-width: 400px;
@@ -26,6 +27,7 @@
   font-size: 25px;
   font-weight: bold;
   color: rgb(65, 13, 68);
+  
 }
 .description {
   margin-left: 2rem;
@@ -33,12 +35,22 @@
   color: rgb(44, 35, 172);
   margin-bottom: 1rem;
 }
+span:active{
+  background-color: rgb(157, 157, 236);
+  opacity: 0.7;
+}
 button {
-  padding: 0.5rem 2rem;
+  padding: 0.5rem 1rem;
   cursor: pointer;
   border: none;
   border-radius: 0.5rem;
-  transition: 0.15s;
+  transition: 0.2s;
+}
+.edit ,.delete,.saveEdit,.resetTodo,.clearTodo {
+  padding: 0.5rem;
+  font-size: larger;
+  border-radius: 0.5rem;
+  position: relative;
 }
 .edit {
   /* margin: 0 1rem; */
@@ -46,13 +58,21 @@ button {
   color: white;
   /* margin-left: 1rem; */
 }
-.delete {
+.delete ,.deleteAll{
   background-color: rgb(234, 112, 112);
   color: rgb(216, 24, 24);
+  
+}
+.deleteAll{
+  font-size: small;
+}
+.btnBox{
+  position: relative;
 }
 .btns {
   display: flex;
   column-gap: 0.5rem;
+  justify-content: center;
 }
 .inputBox {
   display: block;
@@ -81,6 +101,27 @@ button {
   justify-content: center;
   gap: 0.5rem;
 }
+#complete{
+  padding: 0.5rem 1rem;
+  font-size: 15px;
+}
+.completeTodoBefore{
+  background-color: rgb(240, 159, 129);
+  color: rgb(182, 72, 32);
+ 
+}
+.allClear{
+  padding: 1rem;
+  display: flex;
+  justify-content: flex-end;
+  column-gap: 0.5rem;
+}
+.completeTodoAfter{
+  padding: 0.5rem 1rem;
+  background-color: rgb(186, 225, 186);
+  color: rgb(61, 168, 61);
+ 
+}
 @media (max-width: 400px) {
   .noTodo {
     padding: 1rem;
@@ -93,6 +134,6 @@ button {
     flex-wrap: wrap;
   }
   .todo {
-    min-width: max-content;
+    min-width: min-content;
   }
 }
